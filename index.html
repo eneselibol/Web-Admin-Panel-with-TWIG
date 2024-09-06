@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Admin Panel</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+
+<div class="container" id="container">
+
+    <div class="form-container sign-up-container">
+        <form action="register.php" method="post">
+            <h1>Create Account</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your email for registration</span>
+            <input type="text" name="name" placeholder="Name" required/>
+            <input type="text" name="surname" placeholder="Surname" required/>
+            <input type="email" name="email" placeholder="Email" required/>
+            <input type="password" name="password" placeholder="Password" required/>
+            <button>Sign Up</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form method="post" action="login.php">
+            <h1>Sign in</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your account</span>
+            <input type="email" name="email" placeholder="Email" required/>
+            <input type="password" name="password" placeholder="Password" required/>
+            <label id="label_login_status" style="font-size: 12px;width: 100%;text-align: left"></label>
+            <a href="connect-db.php">Forgot your password?</a>
+            <button>Sign In</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>If you already have an account, log in</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>If you don't have an account, sign up</p>
+                <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="./script.js"></script>
+<script type="text/javascript">
+    function GetURLParameter() {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] === "status") {
+                if (sParameterName[1] === "waitingapproval") {
+                    document.getElementById("label_login_status").innerHTML = "User Awaiting Approval.";
+                } else if (sParameterName[1] === "unapproved") {
+                    document.getElementById("label_login_status").innerHTML = "This User Is Not Verified.";
+                } else if (sParameterName[1] === "incorrectuser") {
+                    document.getElementById("label_login_status").innerHTML = "User Information is Incorrect.";
+                } else if (sParameterName[1] === "signout") {
+                    document.getElementById("label_login_status").innerHTML = "";
+                } else {
+                    document.getElementById("label_login_status").innerHTML = "Incorrect transaction please contact us.";
+                }
+            }
+        }
+    }
+    GetURLParameter();
+</script>
+</body>
+</html>
